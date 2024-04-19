@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ profile_user.username }}님의 profile 페이지</h1>
+    <p>가입일: {{ profile_user.date_joined }}</p>s
+
+    <form action="{% url 'accounts:follow' profile_user.id %}" method="post">
+        {% csrf_token %}
+        {% if request.user in profile_user.followers.all %}
+            <button>팔로우풀기</button>
+        {% else %}
+            <button>팔로우하기</button>
+        {% endif %}
+    </form>
+
+    <h2>등록한 물건</h2>
+    <ul>
+        {% for jjim_product in profile_user.product_set.all %}
+            ‹li>
+                ‹a href="{% url 'products:detail' jjim_product.id %}">
+                    {{ jjim_product.id }}. {{ jjim_product.title }}
+                </a>
+            </li>
+        {% end for %}
+    </ul>
+
+    <h2>찜한 목록</h2>
+    <ul>
+        {% for jjim_product in profile_user.product_set.all %}
+            ‹li>
+                ‹a href="{% url 'products:detail' jjim_product.id %}">
+                    {{ jjim_product.id }}. {{ jjim_product.title }}
+                </a>
+            </li>
+        {% end for %}
+    </ul>
+{% endblock %}

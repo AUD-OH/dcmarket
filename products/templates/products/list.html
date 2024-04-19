@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load humanize %}
+
+{% block content %}
+    {% for product_instance in product_instance_list %}
+        <div>
+            <a href="{% url 'products:detail' product_instance.id %}">
+                <div>{{ product_instance.id }}.{{ product_instance.title }}</div>
+                <div>{{ product_instance.price|intcomma }}</div>
+            </a>
+            <form action="{% url 'products:jjim' product_instance.id %}" method="post">
+                {% csrf_token %}
+                <button>
+                    {% if user in product_instance.jjim_users.all %}
+                        찜풀기
+                    {% else %}
+                        찜하기
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+    {% endfor %}
+{% endblock %}

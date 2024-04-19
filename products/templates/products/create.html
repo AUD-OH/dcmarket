@@ -1,0 +1,39 @@
+{% extends 'base.html'%}
+{% load humanize %}
+
+
+{% block content %}
+<h1> {{ product.title }} </h1>
+<p>{{product.price}}dollar</p>
+<div>{{product.content}}</div>
+<br>
+<a href="{% url 'product:update' product.id %}">수정하기</a>
+<form action="{%  url 'products:delete' product.id %}" method="POST">
+    {% csrf_token %}
+    <button>삭제하기</button>
+</form>
+{%endblock%}
+
+
+<form action="{% url 'data_catch' %}" method="GET">
+    {% csrf_token %}
+    <label for="message"> type in your product name</label>
+    <input type="text" id="message" name="message"/>
+    <label for="message"> product description</label>
+    <input type="text" id="message" name="message"/>
+    <p>{{product.price}}dollar</p>
+
+    <input type="text" id="message" name="message"/>
+    <button type="submit">save</button>
+
+    <button type="submit">edit</button>
+    <a href="{% url 'product:update' product.id %}">수정하기</a>
+
+    <button type="submit">delete</button>
+    <form action="{%  url 'products:delete' product.id %}" method="POST">
+
+
+
+</form>
+<a href="{% url 'products:detail' %}">back home</a>
+{% endblock %}

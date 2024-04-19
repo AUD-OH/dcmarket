@@ -1,0 +1,16 @@
+{% extends 'base.html'%}
+{% load humanize %}
+
+
+{% block content %}
+    <h1> {{ product.title }} </h1>
+    <p>{{product.price}}dollar</p>
+    <div>{{product.content}}</div>
+    <br>
+    <a href="{% url 'products:update' product.id %}">수정하기</a>
+    <form action="{%  url 'products:delete' product.id %}" method="POST">
+        {% csrf_token %}
+        <button>삭제하기</button>
+    </form>
+{% endblock %}
+
